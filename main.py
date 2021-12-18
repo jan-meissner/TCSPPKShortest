@@ -87,13 +87,13 @@ def DFSJIT_KShortest(graph, start, target, K):
 
 
     # gather candiates
-    Rcanidates = [(v,j) for v in graph.predecessors(target) for j in range(len(TS(v,target)))]
+    C = [(v,j) for v in graph.predecessors(target) for j in range(len(TS(v,target)))]
 
     # sort canidates
-    Rcanidates = sorted(Rcanidates, key=lambda x: TS(x[0],target)[x[1]] + cost(x[0],target))
+    C = sorted(C, key=lambda x: TS(x[0],target)[x[1]] + cost(x[0],target))
     # enumerate paths
     KPaths = []
-    for x in Rcanidates:
+    for x in C:
         if not lazyDijk.is_threshold_strictly_smaller_t_target(TS(x[0], target)[x[1]], x[0]):
             R(x[0], target, x[1], [])
         if len(KPaths) >= K: break
